@@ -67,7 +67,7 @@ void setup() {
   if (DEBUG) // wait for serial port connection if we are debugging
   {
     while (!Serial) {
-      ; 
+      ;
     }
   }
   Serial.println("Connecting...");
@@ -126,27 +126,31 @@ void loop() {
         lastSoundDetectID = random();
         //Serial.println("Sound detected: ");
         postData = "{";
+        postData += "\"deviceID\":\"";
+        postData += deviceID;
+        postData += "\"";
 
+        postData += ",";
 
-        postData += "\"detectionID\":\"";
+        postData += "\"eventID\":\"";
         postData += lastSoundDetectID;
         postData += "\"";
 
         postData += ",";
 
-        postData += "\"soundLevel\":\"";
+        postData += "\"level\":\"";
         postData += sensorValue;
         postData += "\"";
 
         postData += ",";
 
-        postData += "\"detectionTick\":\"";
+        postData += "\"tick\":\"";
         postData += lastSoundDetectTime;
         postData += "\"";
 
         postData += ",";
 
-        postData += "\"eventType\":\"";
+        postData += "\"event\":\"";
         postData += "START";
         postData += "\"";
 
@@ -165,27 +169,31 @@ void loop() {
       if ( (millis() - lastSoundDetectTime) > soundAlarmTime  &&  isSoundDetected) {
         //Serial.println("No sound: ");
         postData = "{";
+        postData += "\"deviceID\":\"";
+        postData += deviceID;
+        postData += "\"";
 
+        postData += ",";
 
-        postData += "\"detectionID\":\"";
+        postData += "\"eventID\":\"";
         postData += lastSoundDetectID;
         postData += "\"";
 
         postData += ",";
 
-        postData += "\"soundLevel\":\"";
+        postData += "\"level\":\"";
         postData += sensorValue;
         postData += "\"";
 
         postData += ",";
 
-        postData += "\"detectionTick\":\"";
-        postData += lastSoundDetectTime;
+        postData += "\"tick\":\"";
+        postData += lastSoundDetectTime - soundAlarmTime;
         postData += "\"";
 
         postData += ",";
 
-        postData += "\"eventType\":\"";
+        postData += "\"event\":\"";
         postData += "END";
         postData += "\"";
 
